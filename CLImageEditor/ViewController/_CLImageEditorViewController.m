@@ -118,11 +118,17 @@ static const CGFloat kMenuBarHeight = 80.0f;
             [_CLImageEditorViewController setConstraintsLeading:@0 trailing:@0 top:@(dy) bottom:nil height:@(kNavBarHeight) width:nil parent:self.view child:navigationBar peer:nil];
         }
         _navigationBar = navigationBar;
+        _navigationBar.backgroundColor = UIColor.blackColor;
+        _navigationBar.barTintColor = UIColor.blackColor;
+        _navigationBar.barStyle = UIBarStyleBlackTranslucent;
     }
     
     if(self.navigationController!=nil){
         _navigationBar.frame  = self.navigationController.navigationBar.frame;
         _navigationBar.hidden = YES;
+        _navigationBar.backgroundColor = UIColor.blackColor;
+        _navigationBar.barTintColor = UIColor.blackColor;
+        _navigationBar.barStyle = UIBarStyleBlackTranslucent;
         [_navigationBar popNavigationItemAnimated:NO];
     }
     else{
@@ -159,6 +165,7 @@ static const CGFloat kMenuBarHeight = 80.0f;
 
 - (void)initImageScrollView
 {
+    self.view.backgroundColor = UIColor.blackColor;
     if(_scrollView==nil){
         UIScrollView *imageScroll = [[UIScrollView alloc] initWithFrame:self.view.bounds];
         imageScroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

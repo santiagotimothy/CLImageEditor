@@ -266,10 +266,6 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
                        @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemNew" withDefault:@"New"], @"icon":[self imageForKey:kCLTextToolNewTextIconName defaultImageName:@"btn_add.png"]},
                        @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemText" withDefault:@"Text"], @"icon":[self imageForKey:kCLTextToolEditTextIconName defaultImageName:@"icon.png"]},
                        @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemColor" withDefault:@"Color"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemFont" withDefault:@"Font"], @"icon":[self imageForKey:kCLTextToolFontIconName defaultImageName:@"btn_font.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemAlignLeft" withDefault:@" "], @"icon":[self imageForKey:kCLTextToolAlignLeftIconName defaultImageName:@"btn_align_left.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemAlignCenter" withDefault:@" "], @"icon":[self imageForKey:kCLTextToolAlignCenterIconName defaultImageName:@"btn_align_center.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemAlignRight" withDefault:@" "], @"icon":[self imageForKey:kCLTextToolAlignRightIconName defaultImageName:@"btn_align_right.png"]},
                        ];
     
     NSInteger tag = 0;
@@ -316,8 +312,17 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
         case 0:
             [self addNewText];
             break;
-        case 1:
         case 2:
+            if (_colorBtn.iconView.backgroundColor == UIColor.whiteColor){
+                [self textSettingView:_settingView didChangeFillColor: UIColor.blackColor];
+                [self textSettingView:_settingView didChangeBorderColor:UIColor.whiteColor];
+            }else{
+                [self textSettingView:_settingView didChangeFillColor: UIColor.whiteColor];
+                [self textSettingView:_settingView didChangeBorderColor:UIColor.blackColor];
+            }
+            [self textSettingView:_settingView didChangeBorderWidth:0.2];
+            break;
+        case 1:
         case 3:
             [self showSettingViewWithMenuIndex:view.tag-1];
             break;
@@ -406,9 +411,7 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
     if(_settingView.isFirstResponder){
         [_settingView resignFirstResponder];
     }
-    else{
-        [self hideSettingView];
-    }
+    [self hideSettingView];
 }
 
 #pragma mark- Setting view delegate

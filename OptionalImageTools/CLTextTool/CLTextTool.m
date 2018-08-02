@@ -148,6 +148,12 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
                      animations:^{
                           self->_menuScroll.transform = CGAffineTransformIdentity;
                      }];
+    
+    _settingView.selectedFillColor = UIColor.whiteColor;
+    _settingView.selectedBorderColor = UIColor.blackColor;
+    _settingView.selectedBorderWidth = 0.175;
+    [self addNewText];
+    self.selectedTextView.textAlignment = NSTextAlignmentLeft;
 }
 
 - (void)cleanup
@@ -242,7 +248,7 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
         _settingView.selectedBorderColor = selectedTextView.borderColor;
         _settingView.selectedBorderWidth = selectedTextView.borderWidth;
         _settingView.selectedFont = selectedTextView.font;
-        [self setTextAlignment:selectedTextView.textAlignment];
+        [self setTextAlignment:NSTextAlignmentLeft];
     }
 }
 
@@ -263,9 +269,7 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
     CGFloat x = 0;
     
     NSArray *_menu = @[
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemNew" withDefault:@"New"], @"icon":[self imageForKey:kCLTextToolNewTextIconName defaultImageName:@"btn_add.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemText" withDefault:@"Text"], @"icon":[self imageForKey:kCLTextToolEditTextIconName defaultImageName:@"icon.png"]},
-                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemColor" withDefault:@"Color"]},
+                       @{@"title":[CLImageEditorTheme localizedString:@"CLTextTool_MenuItemText" withDefault:@"Text"], @"icon":[self imageForKey:kCLTextToolEditTextIconName defaultImageName:@"icon.png"]}
                        ];
     
     NSInteger tag = 0;
@@ -276,10 +280,10 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
         view.iconImage = obj[@"icon"];
         
         switch (view.tag) {
-            case 1:
+            case 0:
                 _textBtn = view;
                 break;
-            case 2:
+            case 1:
                 _colorBtn = view;
                 _colorBtn.iconView.layer.borderWidth = 2;
                 _colorBtn.iconView.layer.borderColor = [[UIColor blackColor] CGColor];
@@ -309,10 +313,10 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
     UIView *view = sender.view;
     
     switch (view.tag) {
-        case 0:
-            [self addNewText];
-            break;
-        case 2:
+//        case 0:
+//            [self addNewText];
+//            break;
+        case 1:
             if (_colorBtn.iconView.backgroundColor == UIColor.whiteColor){
                 [self textSettingView:_settingView didChangeFillColor: UIColor.blackColor];
                 [self textSettingView:_settingView didChangeBorderColor:UIColor.whiteColor];
@@ -322,7 +326,7 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
             }
             [self textSettingView:_settingView didChangeBorderWidth:0.2];
             break;
-        case 1:
+        case 0:
         case 3:
             [self showSettingViewWithMenuIndex:view.tag-1];
             break;
@@ -390,20 +394,20 @@ static NSString* const kCLTextToolAlignRightIconName = @"alignRightIconAssetsNam
 {
     self.selectedTextView.textAlignment = alignment;
     
-    _alignLeftBtn.selected = _alignCenterBtn.selected = _alignRightBtn.selected = NO;
-    switch (alignment) {
-        case NSTextAlignmentLeft:
-            _alignLeftBtn.selected = YES;
-            break;
-        case NSTextAlignmentCenter:
-            _alignCenterBtn.selected = YES;
-            break;
-        case NSTextAlignmentRight:
-            _alignRightBtn.selected = YES;
-            break;
-        default:
-            break;
-    }
+//    _alignLeftBtn.selected = _alignCenterBtn.selected = _alignRightBtn.selected = NO;
+//    switch (alignment) {
+//        case NSTextAlignmentLeft:
+//            _alignLeftBtn.selected = YES;
+//            break;
+//        case NSTextAlignmentCenter:
+//            _alignCenterBtn.selected = YES;
+//            break;
+//        case NSTextAlignmentRight:
+//            _alignRightBtn.selected = YES;
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 - (void)pushedButton:(UIButton*)button
